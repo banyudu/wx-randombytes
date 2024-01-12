@@ -31,10 +31,20 @@ function getRandomValues (arr) {
 }
 
 function randomBytes (size, cb) {
-  console.log('randomBytes.size: ', size)
-  size = 32 // hardcode to 32 bytes for now
   // phantomjs needs to throw
   if (size > MAX_UINT32) throw new RangeError('requested too many random bytes')
+
+  if (typeof cb === 'function') {
+    return process.nextTick(function () {
+      wx.getRandomValues({
+        length: size,
+        success: res => {
+          // console.log(wx.arrayBufferToBase64(res.randomValues)) // Convert to base64 Print after string
+          cb(null, res.randomValues)
+        }
+      })
+    })
+  }
 
   const bytes = Buffer.allocUnsafe(size)
 
@@ -49,12 +59,6 @@ function randomBytes (size, cb) {
     } else {
       getRandomValues(bytes)
     }
-  }
-
-  if (typeof cb === 'function') {
-    return process.nextTick(function () {
-      cb(null, bytes)
-    })
   }
 
   return bytes
