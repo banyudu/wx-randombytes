@@ -1,6 +1,6 @@
 {
   "name": "wx-randombytes",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "random bytes from browserify stand alone",
   "main": "index.js",
   "scripts": {
