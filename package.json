@@ -1,12 +1,15 @@
 {
-  "name": "randombytes",
-  "version": "2.1.0",
+  "name": "wx-randombytes",
+  "version": "0.0.0",
   "description": "random bytes from browserify stand alone",
   "main": "index.js",
   "scripts": {
     "test": "standard && node test.js | tspec",
     "phantom": "zuul --phantom -- test.js",
     "local": "zuul --local --no-coverage -- test.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",

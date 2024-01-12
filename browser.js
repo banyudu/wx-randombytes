@@ -8,17 +8,26 @@ const MAX_BYTES = 65536
 // https://github.com/nodejs/node/blob/master/lib/internal/crypto/random.js#L48
 const MAX_UINT32 = 4294967295
 
-function oldBrowser () {
-  throw new Error('Secure random number generation is not supported by this browser.\nUse Chrome, Firefox or Internet Explorer 11')
-}
+// function oldBrowser () {
+//   throw new Error('Secure random number generation is not supported by this browser.\nUse Chrome, Firefox or Internet Explorer 11')
+// }
 
-const _global = typeof globalThis !== 'undefined' ? globalThis : global
-const crypto = _global.crypto || _global.msCrypto
+// const _global = typeof globalThis !== 'undefined' ? globalThis : global
+// const crypto = _global.crypto || _global.msCrypto
 
-if (crypto && crypto.getRandomValues) {
-  module.exports = randomBytes
-} else {
-  module.exports = oldBrowser
+// if (crypto && crypto.getRandomValues) {
+//   module.exports = randomBytes
+// } else {
+//   module.exports = oldBrowser
+// }
+
+module.exports = randomBytes
+
+function getRandomValues (arr) {
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = Math.floor(Math.random() * 256)
+  }
+  return arr
 }
 
 function randomBytes (size, cb) {
@@ -33,10 +42,10 @@ function randomBytes (size, cb) {
       for (let generated = 0; generated < size; generated += MAX_BYTES) {
         // buffer.slice automatically checks if the end is past the end of
         // the buffer so we don't have to here
-        crypto.getRandomValues(bytes.slice(generated, generated + MAX_BYTES))
+        getRandomValues(bytes.slice(generated, generated + MAX_BYTES))
       }
     } else {
-      crypto.getRandomValues(bytes)
+      getRandomValues(bytes)
     }
   }
 
