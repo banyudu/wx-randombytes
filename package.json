@@ -4,6 +4,7 @@
   "description": "random bytes from browserify stand alone",
   "main": "index.js",
   "scripts": {
+    "postversion": "git push && git push --tags && npm publish",
     "test": "standard && node test.js | tspec",
     "phantom": "zuul --phantom -- test.js",
     "local": "zuul --local --no-coverage -- test.js"
