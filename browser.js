@@ -31,6 +31,8 @@ function getRandomValues (arr) {
 }
 
 function randomBytes (size, cb) {
+  console.log('randomBytes.size: ', size)
+  size = 32 // hardcode to 32 bytes for now
   // phantomjs needs to throw
   if (size > MAX_UINT32) throw new RangeError('requested too many random bytes')
 
